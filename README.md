@@ -13,30 +13,34 @@ Welcome to my Secure Home Lab project's GitHub repository. This project showcase
 - **Wireless Access Point (AP)**: Extends Wi-Fi coverage and segregates IoT device traffic.
 - **Linode Cloud Services**: Hosts Docker containers for network services and data accessibility.
 
-### Network Map
+### Network Map (Check README.md code for diagram)
 
 Internet
     |
-[ISP Modem]
+[ISP Modem] --- [Protectli Vault with pfSense] --- WAN
+    |                                                      |
+    |                                                      |--- [Snort IDS]
+    |                                                      |     (Intrusion Detection System running on pfSense)
+    |                                                      |
+    |                                                      |--- LAN --- [Managed Switch]
+    |                                                                           |
+    |                                                                           |--- [Raspberry Pi NAS]
+    |                                                                           |     (Stores business files for properties in Thailand and Las Vegas)
+    |                                                                           |
+    |                                                                           |--- [Wireless AP]
+    |                                                                                 (Provides separate Wi-Fi networks for regular and IoT devices)
     |
-[Protectli Vault with pfSense] --- WAN
-    | 
-    |--- LAN --- [Managed Switch]
-                  |         |
-                  |         |--- [Raspberry Pi NAS]
-                  |         |     (Business files for properties in Thailand and Las Vegas)
-                  |         |
-                  |         |--- [Wireless AP] --- Separate Wi-Fi for IoT Devices
-                  |
-                  |--- [Linode Cloud Services]
-                           |
-                           |--- [Docker Host] (Cloud-hosted)
-                           |       |
-                           |       |--- [Cloudflare VPN Tunnel] (Secure remote access)
-                           |       |
-                           |       |--- [Pi-hole and Unbound] (DNS and Ad-blocking)
-                           |
-                           |--- [Snort IDS] (Intrusion Detection on pfSense)
+    |--- [Linode Cloud Services]
+         |
+         |--- [Docker Host] (Cloud-hosted)
+                 |
+                 |--- [Cloudflare VPN Tunnel]
+                 |     (Enables secure and private remote access)
+                 |
+                 |--- [Pi-hole and Unbound]
+                       (Handles DNS and ad-blocking, improving network performance and security)
+
+
 
 
 ## Configuration Details
